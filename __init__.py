@@ -33,14 +33,13 @@ class CryptocurrencySkill(MycroftSkill):
 
     def initialize(self):
         for coin in self.coins.keys():
-            if coin in ["eur", "euro", "euros", "rur", "ruble", "rubles",
-                        "gbp", "pound", "pounds", "british pound",
-                        "british pounds", "british pound sterling", "usd",
-                        "american dollars", "american dollar",
-                          "dollar", "dollars", "us dollar", "us dollars",
-                          "u s dollar", "u s dollars", "u s d", "$"]:
-                self.register_vocabulary(coin, "TargetCurrency")
-            else:
+            flag = False
+            for currency in ["eur", "rur", "ruble", "gbp", "pound", "usd",
+                             "dollar", "u s d", "g b p", " r u r"]:
+                if currency in coin:
+                    self.register_vocabulary(coin, "TargetCurrency")
+                    flag = True
+            if not flag:
                 self.register_vocabulary(coin, "CryptoCurrency")
 
         intent = IntentBuilder("CryptocoinPriceIntent").require(
