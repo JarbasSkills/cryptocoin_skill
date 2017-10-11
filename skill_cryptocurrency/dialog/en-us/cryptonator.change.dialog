@@ -1,0 +1,2 @@
+{{ base }} price changed {{ change }} {{ target }} in the past hour
+{{ base }} price changed {{ change }} {{ target }} in the last hour

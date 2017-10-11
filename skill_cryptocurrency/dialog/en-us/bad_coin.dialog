@@ -1,0 +1,3 @@
+i do not recognize {{ coin }} as a currency
+{{ coin }} is not a currency
+{{ coin }} does not seem to be a currency
