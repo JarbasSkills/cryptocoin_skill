@@ -1,2 +1,2 @@
-{{ base }} trade volume for the last 24 hours was {{ volume }} {{ target }}
-{{ base }} {{ target }} trading volume for last 24 hours was {{ volume }}
+{{ base }} {{ target }} trade volume for the last 24 hours was {{ volume }}
+{{ base }} {{ target }} trading volume in the last 24 hours was {{ volume }}
