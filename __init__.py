@@ -78,7 +78,7 @@ class CryptocurrencySkill(MycroftSkill):
         if not currency_code:
             self.speak_dialog("bad_coin", {"coin": currency_code})
             return
-        url = "https://api.cryptonator.com/api/ticker/"+code+"-"+currency_code
+        url = "https://api.cryptonator.com/api/ticker/" + code + "-" + currency_code
         r = requests.get(url)
         j = json.loads(r.text)
         data = j["ticker"]
@@ -106,7 +106,7 @@ class CryptocurrencySkill(MycroftSkill):
         if not currency_code:
             self.speak_dialog("bad_coin", {"coin": currency_code})
             return
-        url = "https://api.cryptonator.com/api/ticker/"+code+"-"+currency_code
+        url = "https://api.cryptonator.com/api/ticker/" + code + "-" + currency_code
         r = requests.get(url)
         j = json.loads(r.text)
         data = j["ticker"]
@@ -134,7 +134,7 @@ class CryptocurrencySkill(MycroftSkill):
         if not currency_code:
             self.speak_dialog("bad_coin", {"coin": currency_code})
             return
-        url = "https://api.cryptonator.com/api/ticker/"+code+"-"+currency_code
+        url = "https://api.cryptonator.com/api/ticker/" + code + "-" + currency_code
         r = requests.get(url)
         j = json.loads(r.text)
         data = j["ticker"]
@@ -1409,7 +1409,7 @@ class CryptocurrencySkill(MycroftSkill):
             'ZRX': 'ZRX',
             'ZSC': 'ZSC',
             'ZUR': 'ZUR'
-            }
+        }
         coins = {}
 
         for coin in coin_list:
@@ -1420,10 +1420,14 @@ class CryptocurrencySkill(MycroftSkill):
             # Duplicate coins with "coin"/"cash" in name because of natural
             # language,  bitcoin bit coin / zcash z cash
             if "coin" in coin.lower():
-                coins[coin.lower().replace("coin", " coin ")] = coin_list[
-                    coin].lower()
+                coins[coin.lower().replace("coin",
+                                           " coin ").rstrip().lstrip()] = \
+                    coin_list[
+                        coin].lower()
             if "cash" in coin.lower():
-                coins[coin.lower().replace("cash", " cash ")] = coin_list[
+                coins[coin.lower().replace("cash",
+                                           " cash ").rstrip().lstrip()] = \
+                    coin_list[
                     coin].lower()
         self.coins = coins
 
