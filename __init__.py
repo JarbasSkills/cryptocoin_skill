@@ -92,6 +92,11 @@ class CryptocurrencySkill(MycroftSkill):
         base = data["base"]
         target = data["target"]
 
+        self.enclosure.deactivate_mouth_events()
+        text = price[:7] + " " + currency
+        self.enclosure.mouth_text(text)
+
+
         if currency == "eur":
             currency = "euros"
         elif currency == "usd":
@@ -99,9 +104,6 @@ class CryptocurrencySkill(MycroftSkill):
         elif currency == "gbp":
             currency = "british pounds"
 
-        self.enclosure.deactivate_mouth_events()
-        text = price[:7] + " " + currency
-        self.enclosure.mouth_text(text)
 
         self.speak_dialog("cryptonator.price", {"base": coin, "target":
             currency, "price": price})
