@@ -20,6 +20,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 import requests
 import json
+from mycroft.audio import wait_while_speaking
 
 __author__ = 'jarbas'
 
@@ -90,7 +91,6 @@ class CryptocurrencySkill(MycroftSkill):
         price = data["price"]
         base = data["base"]
         target = data["target"]
-        self.enclosure.mouth_text(price[:7] + " " + currency)
 
         if currency == "eur":
             currency = "euros"
@@ -99,8 +99,17 @@ class CryptocurrencySkill(MycroftSkill):
         elif currency == "gbp":
             currency = "british pounds"
 
+        self.enclosure.deactivate_mouth_events()
+        text = price[:7] + " " + currency
+        self.enclosure.mouth_text(text)
+
         self.speak_dialog("cryptonator.price", {"base": coin, "target":
             currency, "price": price})
+
+        # Just show the price while still speaking
+        wait_while_speaking()
+        self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
 
 
         self.set_context("CryptoCurrency", base)
