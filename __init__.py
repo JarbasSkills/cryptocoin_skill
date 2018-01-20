@@ -100,11 +100,10 @@ class CryptocurrencySkill(MycroftSkill):
             currency, "price": price})
 
         # Just show the price while still speaking
-        time.sleep(2)
+        time.sleep(8)
         wait_while_speaking()
         self.enclosure.activate_mouth_events()
         self.enclosure.mouth_reset()
-
 
         self.set_context("CryptoCurrency", base)
         self.set_context("TargetCurrency", target)
