@@ -20,7 +20,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 import requests
 import json, time
-from mycroft.audio import wait_while_speaking
+from mycroft.audio import wait_while_speaking, is_speaking
 
 __author__ = 'jarbas'
 
@@ -99,8 +99,12 @@ class CryptocurrencySkill(MycroftSkill):
         self.speak_dialog("cryptonator.price", {"base": coin, "target":
             currency, "price": price})
 
+        # wait for speech to start, maximum 3 seconds
+        start = time.time()
+        while not is_speaking() and time.time() - start < 3:
+            time.sleep(0.3)
+
         # Just show the price while still speaking
-        time.sleep(8)
         wait_while_speaking()
         self.enclosure.activate_mouth_events()
         self.enclosure.mouth_reset()
