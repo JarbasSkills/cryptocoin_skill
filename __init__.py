@@ -92,18 +92,11 @@ class CryptocurrencySkill(MycroftSkill):
         base = data["base"]
         target = data["target"]
 
+        self.speak_dialog("cryptonator.price", {"base": coin, "target":
+            currency, "price": price})
         self.enclosure.deactivate_mouth_events()
         text = price[:7] + " " + currency
         self.enclosure.mouth_text(text)
-
-        self.speak_dialog("cryptonator.price", {"base": coin, "target":
-            currency, "price": price})
-
-        # wait for speech to start, maximum 3 seconds
-        start = time.time()
-        while not is_speaking() and time.time() - start < 3:
-            time.sleep(0.3)
-
         # Just show the price while still speaking
         wait_while_speaking()
         self.enclosure.activate_mouth_events()
@@ -1447,9 +1440,6 @@ class CryptocurrencySkill(MycroftSkill):
                     coin_list[
                     coin].lower()
         self.coins = coins
-
-    def stop(self):
-        pass
 
 
 def create_skill():
