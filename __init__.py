@@ -88,14 +88,14 @@ class CryptocurrencySkill(MycroftSkill):
             error = j["error"]
             self.speak_dialog("cryptonator.error", {"error": error})
             return
-        price = data["price"]
+        price = float(data["price"])
         base = data["base"]
         target = data["target"]
 
         self.speak_dialog("cryptonator.price", {"base": coin, "target":
-            currency, "price": price})
+            self.pretty_currency(currency), "price": "%.2f" % price})
         self.enclosure.deactivate_mouth_events()
-        text = price[:7] + " " + currency
+        text = "%.2f" % price + " " + currency
         self.enclosure.mouth_text(text)
         # Just show the price while still speaking
         wait_while_speaking()
@@ -1441,6 +1441,15 @@ class CryptocurrencySkill(MycroftSkill):
                     coin].lower()
         self.coins = coins
 
+    def pretty_currency(self, currency):
+        # TODO all  currencies
+        m = {"eur": "euros",
+            "usd": "dollars",
+            "gbp": "pounds"}
+        currency = currency.lower()
+        if currency in m:
+            currency = m[currency]
+        return currency
 
 def create_skill():
     return CryptocurrencySkill()
